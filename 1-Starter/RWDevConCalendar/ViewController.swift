@@ -44,38 +44,6 @@ class ViewController: UICollectionViewController {
   }
 
   private func loadData() {
-    /*
-    let path = NSBundle.mainBundle().pathForResource("sessions", ofType: "json")
-    let json = JSON(data: NSData(contentsOfFile: path!)!)
-
-    var data = [NSDate:[Session]]()
-
-    for (key, value) in json {
-      let session = createSessionFromJSON(value)
-      let day = session.start.beginningOfDay()
-
-      var dayArray = data[day]
-      if dayArray == nil {
-        dayArray = []
-      }
-      dayArray!.append(session)
-      data[day] = dayArray
-    }
-
-    var days = data.keys.array
-    days.sort {
-      lhs, rhs in
-      return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
-    }
-
-    var sessions = [[Session]]()
-    for day in days {
-      sessions.append(data[day]!)
-    }
-
-    self.days = days
-    self.sessions = sessions
-    */
   }
 
   override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

@@ -23,7 +23,8 @@ class SpeakersViewController: UITableViewController {
 
   private func loadData() {
     let path = NSBundle.mainBundle().pathForResource("speakers", ofType: "json")
-    let json = JSON(data: NSData(contentsOfFile: path!)!)
+    let url = NSData(contentsOfFile: path!)
+    let json = JSON(data: url!)
 
     var speakers = [(String, String)]()
 
