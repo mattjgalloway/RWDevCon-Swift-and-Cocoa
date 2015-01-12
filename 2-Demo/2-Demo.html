@@ -1,0 +1,200 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>2-Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;margin:30px 0 0;padding:0;background:#fff}#wrapper{padding:20px}li{font-size:110%}li li{font-size:100%}li p{font-size:100%;margin:.5em 0}h1{color:#000}h2{color:#111}h3{color:#111;margin:0}h4{color:#111}h5{color:#111}h6{font-size:1em;line-height:1.5em;margin:1.5em 0}body,p,td,div{color:#111;font-family:"Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;word-wrap:break-word}a{color:#0d6ea1;text-decoration:none;-webkit-transition:color 0.2s ease-in-out;-moz-transition:color 0.2s ease-in-out;-o-transition:color 0.2s ease-in-out;-ms-transition:color 0.2s ease-in-out;transition:color 0.2s ease-in-out}a:hover{color:#3593d9}body{font-size:15px;line-height:21px;margin:0 auto}h1{font-size:37px;line-height:42px;margin-top:42px;margin-bottom:21px}h2{font-size:27px;line-height:42px;margin-top:42px;margin-bottom:21px}h3{font-size:20px;line-height:21px;margin-top:21px;margin-bottom:21px}h4{font-size:20px;line-height:21px;margin-top:21px;margin-bottom:21px}p,ul,ol,pre,table,blockquote{margin-top:21px;margin-bottom:21px}hr{border:1px solid;margin:-1px 0}ul ul,ol ol,ul ol,ol ul{margin-top:0;margin-bottom:0}b,strong,em,small,code{line-height:1}.footnote{color:#0d6ea1;font-size:.8em;vertical-align:super}#wrapper img{max-width:100%;height:auto}dd{font-size:1em;margin-bottom:1em}li>p:first-child{margin:0}ul ul,ul ol{margin-bottom:.4em}caption,col,colgroup,table,tbody,td,tfoot,th,thead,tr{border-spacing:0}table{border:1px solid rgba(0,0,0,0.25);border-collapse:collapse;display:table;empty-cells:hide;margin:-1px 0 1.3125em;padding:0;table-layout:fixed}caption{display:table-caption;font-weight:700}col{display:table-column}colgroup{display:table-column-group}tbody{display:table-row-group}tfoot{display:table-footer-group}thead{display:table-header-group}td,th{display:table-cell}tr{display:table-row}table th,table td{font-size:1.1em;line-height:1.3;padding:.5em 1em 0}table thead{background:rgba(0,0,0,0.15);border:1px solid rgba(0,0,0,0.15);border-bottom:1px solid rgba(0,0,0,0.2)}table tbody{background:rgba(0,0,0,0.05)}table tfoot{background:rgba(0,0,0,0.15);border:1px solid rgba(0,0,0,0.15);border-top:1px solid rgba(0,0,0,0.2)}figure{display:inline-block;overflow:hidden;position:relative;margin:1em 0 2em}figcaption{font-style:italic;text-align:center;background:white;color:#666}.poetry pre{display:block;font-family:Georgia,Garamond,serif !important;font-size:110% !important;font-style:italic;line-height:1.6em;margin-left:1em}.poetry pre code{font-family:Georgia,Garamond,serif !important;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;hyphens:auto;white-space:pre-wrap}blockquote p{font-size:110%;font-style:italic;line-height:1.6em}sup,sub,a.footnote{font-size:1.4ex;height:0;line-height:1;position:relative;vertical-align:super}sub{vertical-align:sub;top:-1px}p,h5{font-size:1.1429em;line-height:1.3125em;margin:1.3125em 0}dt,th{font-weight:700}table tr:nth-child(odd),table th:nth-child(odd),table td:nth-child(odd){background:rgba(255,255,255,0.06)}table tr:nth-child(even),table td:nth-child(even){background:rgba(200,200,200,0.25)}@media print{body{font-size:13px !important}img,table,figure{page-break-inside:avoid}#wrapper{background:#fff;color:#303030;padding:10px;position:relative;text-indent:0}}@media screen{.inverted{background:#252a2a}.inverted #wrapper{background:#252a2a;color:#eee}.inverted hr{border-color:#333f40 !important}.inverted p,.inverted td,.inverted li,.inverted h1,.inverted h2,.inverted h3,.inverted h4,.inverted h5,.inverted h6,.inverted th,.inverted .math,.inverted caption,.inverted dt,.inverted dd{color:#eee}.inverted pre{background:#ccc}.inverted pre code{color:#111}.inverted table{background:none}.inverted table tr:nth-child(odd),.inverted table td:nth-child(odd){background:none}.inverted a{color:#acd1d5}::selection{background:rgba(157,193,200,0.5)}h1::selection{background-color:rgba(45,156,208,0.3)}h2::selection{background-color:rgba(90,182,224,0.3)}h3::selection,h4::selection,h5::selection,h6::selection,li::selection,ol::selection{background-color:rgba(133,201,232,0.3)}code::selection{background-color:rgba(0,0,0,0.7);color:#eee}code span::selection{background-color:rgba(0,0,0,0.7) !important;color:#eee !important}a::selection{background-color:rgba(255,230,102,0.2)}.inverted a::selection{background-color:rgba(255,230,102,0.6)}td::selection,th::selection,caption::selection{background-color:rgba(180,237,95,0.5)}}
+
+@media print{
+#generated-toc-clone,#generated-toc{display:none!important}
+}
+#generated-toc-clone li.missing,#mkreplaced-toc li.missing{list-style-type:none!important}#generated-toc-clone li, #mkreplaced-toc li{list-style-type:upper-roman}#generated-toc-clone li li, #mkreplaced-toc li li{list-style-type:decimal}#generated-toc-clone li li li,#mkreplaced-toc li li li{list-style-type:decimal-leading-zero}#generated-toc-clone li li li li,#mkreplaced-toc li li li li{list-style-type:lower-greek}#generated-toc-clone li li li li li,#mkreplaced-toc li li li li li{list-style-type:disc}#generated-toc-clone li li li li li li,#mkreplaced-toc li li li li li li{list-style-type:square}
+</style>
+
+</head>
+<body class="normal">
+  <div id="wrapper">
+      <h1 id="203:swiftcocoapart2:demoinstructions">203: Swift &amp; Cocoa, Part 2: Demo Instructions</h1>
+
+<p>In this demo, you will make the basic RWDevCon Schedule app. The steps here will be explained in the demo, but here are the raw steps in case you miss a step or get stuck.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Open <code>RWDevConCalendar.xcworkspace</code> and take a look around the app. Build &amp; run. The app doesn&#8217;t do anything yet, but we&#8217;ll add the schedule in this demo.</p>
+
+<h2 id="usingtheobjective-ccollectionviewlayout">Using the Objective-C collection view layout</h2>
+
+<p>We want to reuse some code found on GitHub, using Cocoa Pods. It&#8217;s written in Objective-C and hasn&#8217;t been ported yet. But never fear - this can be achieved using <strong>brigding</strong>.</p>
+
+<p>Click <strong>File\New\File…</strong>. Select <strong>iOS\Source\Header File</strong> and click <strong>Next</strong>. Call the file <strong>RWDevConCalendar-Bridging-Header.h</strong> and save it with the project.</p>
+
+<p>Open <strong>RWDevConCalendar-Bridging-Header.h</strong> and make it look like this:</p>
+<pre><code class="(null)">#import &quot;MSCollectionViewCalendarLayout.h&quot;
+#import &quot;NSDate+CupertinoYankee.h&quot;</code></pre>
+
+<p>Select the project in the project navigator, then select <strong>Build Settings</strong>. Search for <strong>Bridg</strong> and select <strong>Objective-C Bridging Header</strong>. Double click on the setting under the column <strong>RWDevConCalendar</strong> and enter:</p>
+<pre><code class="(null)">${PRODUCT_NAME}/${PRODUCT_NAME}-Bridging-Header.h</code></pre>
+
+<p>Open <strong>ViewController.swift</strong> and enter the following at the end of <code>viewDidLoad()</code>:</p>
+<pre><code class="(null)">let layout = self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout
+layout.sectionLayoutType = .HorizontalTile
+layout.headerLayoutType = .TimeRowAboveDayColumn
+layout.timeRowHeaderWidth = 46
+layout.sectionWidth = 402</code></pre>
+
+<p>Now you can use the <code>MSCollectionViewCalendarLayout</code> class, which is written in Objective-C, but from Swift!</p>
+
+<h2 id="parsingthedata">Parsing the data</h2>
+
+<p>Take a look at <code>ssessions.json</code>. This contains the data for the sessions that we&#8217;ll use to populate the calendar.</p>
+
+<p>Open <strong>ViewController.swift</strong> and find <code>loadData()</code>. Add the following:</p>
+<pre><code class="(null)">let path = NSBundle.mainBundle().pathForResource(&quot;sessions&quot;, ofType: &quot;json&quot;)
+let url = NSData(contentsOfFile: path!)
+let json = JSON(data: url!)</code></pre>
+
+<p>This obtains the path to the <code>sessions.json</code> file. The return type of <code>pathForResource</code> is <code>NSString?</code> so we need to unwrap it when using it with the <code>NSData</code> initialiser. That initialiser returns as <code>NSData?</code>, so we unwrap it when creating the <code>JSON</code> object.</p>
+
+<p>See <code>SwiftyJSON.swift</code> for more about <code>JSON</code>. This is a very handy way to handle JSON in Swift due to the strong typing in Swift, which makes it hard to use techniques we used in Objective-C.</p>
+
+<p>Add the following:</p>
+<pre><code class="(null)">var data = <a href="">NSDate:[Session]</a>
+
+<p>for (key, value) in json {
+ let session = createSessionFromJSON(value)
+ let day = session.start.beginningOfDay()</p>
+
+<p>var dayArray = data[day]
+ if dayArray == nil {
+ dayArray = []
+ }
+ dayArray!.append(session)
+ data[day] = dayArray
+}</p>
+
+<p>var days = data.keys.array
+days.sort {
+ lhs, rhs in
+ return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
+}</p>
+
+<p>var sessions = [[Session]]()
+for day in days {
+ sessions.append(data[day]!)
+}</p>
+self.days = days
+self.sessions = sessions</code></pre>
+
+<p>This parses all the sessions into the relevant data structures.</p>
+
+<h2 id="buildingthecollectionview">Building the collection view</h2>
+
+<p>Open <strong>ViewController.swift</strong> and add the following to the bottom of <code>viewDidLoad()</code>:</p>
+<pre><code class="(null)">layout.delegate = self
+
+<p>self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier: &quot;Cell&quot;)
+self.collectionView?.registerClass(DayColumnHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindDayColumnHeader, withReuseIdentifier: DAY_COLUMN_IDENTIFIER)
+self.collectionView?.registerClass(TimeRowHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindTimeRowHeader, withReuseIdentifier: TIME_ROW_IDENTIFIER)</p>
+// These are optional. If you don&apos;t want any of the decoration views, just don&apos;t register a class for them.
+layout.registerClass(CurrentTimeGridline.self, forDecorationViewOfKind: MSCollectionElementKindCurrentTimeHorizontalGridline)
+layout.registerClass(Gridline.self, forDecorationViewOfKind: MSCollectionElementKindHorizontalGridline)
+layout.registerClass(Gridline.self, forDecorationViewOfKind: MSCollectionElementKindVerticalGridline)
+layout.registerClass(TimeRowHeaderBackground.self, forDecorationViewOfKind: MSCollectionElementKindTimeRowHeaderBackground)
+layout.registerClass(DayColumnHeaderBackground.self, forDecorationViewOfKind: MSCollectionElementKindDayColumnHeaderBackground)</code></pre>
+
+<p>This sets up the view controller to be the delegate of the collection view layout and also registers the various collection view cells with the collection view.</p>
+
+<p>Add the following to the bottom of the file:</p>
+<pre><code class="(null)">extension ViewController: MSCollectionViewDelegateCalendarLayout {
+
+<p>func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, dayForSection section: Int) -&gt; NSDate! {
+ return self.days[section]
+ }</p>
+
+<p>func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, startTimeForItemAtIndexPath indexPath: NSIndexPath!) -&gt; NSDate! {
+ let session = self.sessions[indexPath.section][indexPath.item]
+ return session.start
+ }</p>
+
+<p>func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, endTimeForItemAtIndexPath indexPath: NSIndexPath!) -&gt; NSDate! {
+ let session = self.sessions[indexPath.section][indexPath.item]
+ return session.end
+ }</p>
+
+<p>func currentTimeComponentsForCollectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!) -&gt; NSDate! {
+ return NSDate()
+ }</p>
+}</code></pre>
+
+<p>This is the recommended way to organise implementing protocols in Swift. Add them as an extension on the class, one for each protocol. Here we give the collection view layout the various things it needs.</p>
+
+<h2 id="displayingdata">Displaying data</h2>
+
+<p>Open <strong>ViewController.swift</strong> and add the following at the top of the file, outside the implementation of the class:</p>
+<pre><code class="(null)">extension SessionCell {
+
+<p>func setupWithSession(session: Session) {
+ switch session.track {
+ case .Generic:
+ self.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
+ case .Beginner:
+ self.backgroundColor = UIColor(red: 0.8, green: 1.0, blue: 0.8, alpha: 1.0)
+ case .Intermediate:
+ self.backgroundColor = UIColor(red: 1.0, green: 0.9, blue: 0.8, alpha: 1.0)
+ case .Advanced:
+ self.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.8, alpha: 1.0)
+ }</p>
+
+<pre><code>self.titleLabel.text = session.title
+self.speakerLabel.text = session.speaker
+
+self.setNeedsLayout()
+</code></pre>
+
+<p>}</p>
+}</code></pre>
+
+<p>This is an extension on the <code>SessionCell</code> to enable us to set it up with a given <code>Session</code> instance.</p>
+
+<p>Find <code>collectionView(cellForItemAtIndexPath:)</code> and add the following in the middle of the existing two lines:</p>
+<pre><code class="(null)">let session = self.sessions[indexPath.section][indexPath.item]
+cell.setupWithSession(session)</code></pre>
+
+<p>This sets up the cell with the session for the relevant index path.</p>
+
+<p>Add the following method to the <code>ViewController</code> class:</p>
+<pre><code class="(null)">override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -&gt; UICollectionReusableView {
+ switch kind {
+ case MSCollectionElementKindDayColumnHeader:
+ let dayColumnHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DAY_COLUMN_IDENTIFIER, forIndexPath: indexPath) as DayColumnHeader
+ let day = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForDayColumnHeaderAtIndexPath(indexPath)
+ dayColumnHeader.titleLabel.text = self.dayColumnDateFormatter.stringFromDate(day)
+ dayColumnHeader.setNeedsLayout()
+ return dayColumnHeader
+ case MSCollectionElementKindTimeRowHeader:
+ let timeRowHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: TIME_ROW_IDENTIFIER, forIndexPath: indexPath) as TimeRowHeader
+ let time = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForTimeRowHeaderAtIndexPath(indexPath)
+ timeRowHeader.titleLabel.text = self.timeRowDateFormatter.stringFromDate(time)
+ timeRowHeader.setNeedsLayout()
+ return timeRowHeader
+ default:
+ fatalError(&quot;Unhandled supplementary kind&quot;)
+ }
+}</code></pre>
+
+<p>This returns the relevant views for the supplementary items in the collection view.</p>
+
+<h2 id="buildrun">Build &amp; Run</h2>
+
+<p>Build &amp; run and you&#8217;ll see something like this:</p>
+
+<figure>
+<img src="./2-DemoImages/01-RWDevConCalendar.png" alt="" />
+</figure>
+<!-- ##END MARKED WRAPPER## -->
+    </div>
+</body>
+</html>
