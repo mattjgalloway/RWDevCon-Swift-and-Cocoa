@@ -15,7 +15,7 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 </style>
 
 </head>
-<body class="normal">
+<body class="normal firstload">
   <div id="wrapper">
       <h1 id="203:swiftcocoapart2:demoinstructions">203: Swift &amp; Cocoa, Part 2: Demo Instructions</h1>
 
@@ -61,30 +61,31 @@ let json = JSON(data: url!)</code></pre>
 <p>See <code>SwiftyJSON.swift</code> for more about <code>JSON</code>. This is a very handy way to handle JSON in Swift due to the strong typing in Swift, which makes it hard to use techniques we used in Objective-C.</p>
 
 <p>Add the following:</p>
-<pre><code class="(null)">var data = <a href="">NSDate:[Session]</a>
+<pre><code class="(null)">var data = [NSDate:[Session]]()
 
-<p>for (key, value) in json {
- let session = createSessionFromJSON(value)
- let day = session.start.beginningOfDay()</p>
+for (key, value) in json {
+  let session = createSessionFromJSON(value)
+  let day = session.start.beginningOfDay()
 
-<p>var dayArray = data[day]
- if dayArray == nil {
- dayArray = []
- }
- dayArray!.append(session)
- data[day] = dayArray
-}</p>
+  var dayArray = data[day]
+  if dayArray == nil {
+    dayArray = []
+  }
+  dayArray!.append(session)
+  data[day] = dayArray
+}
 
-<p>var days = data.keys.array
+var days = data.keys.array
 days.sort {
- lhs, rhs in
- return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
-}</p>
+  lhs, rhs in
+  return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
+}
 
-<p>var sessions = [[Session]]()
+var sessions = [[Session]]()
 for day in days {
- sessions.append(data[day]!)
-}</p>
+  sessions.append(data[day]!)
+}
+
 self.days = days
 self.sessions = sessions</code></pre>
 
@@ -95,9 +96,10 @@ self.sessions = sessions</code></pre>
 <p>Open <strong>ViewController.swift</strong> and add the following to the bottom of <code>viewDidLoad()</code>:</p>
 <pre><code class="(null)">layout.delegate = self
 
-<p>self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier: &quot;Cell&quot;)
+self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier: &quot;Cell&quot;)
 self.collectionView?.registerClass(DayColumnHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindDayColumnHeader, withReuseIdentifier: DAY_COLUMN_IDENTIFIER)
-self.collectionView?.registerClass(TimeRowHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindTimeRowHeader, withReuseIdentifier: TIME_ROW_IDENTIFIER)</p>
+self.collectionView?.registerClass(TimeRowHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindTimeRowHeader, withReuseIdentifier: TIME_ROW_IDENTIFIER)
+
 // These are optional. If you don&apos;t want any of the decoration views, just don&apos;t register a class for them.
 layout.registerClass(CurrentTimeGridline.self, forDecorationViewOfKind: MSCollectionElementKindCurrentTimeHorizontalGridline)
 layout.registerClass(Gridline.self, forDecorationViewOfKind: MSCollectionElementKindHorizontalGridline)
@@ -110,23 +112,24 @@ layout.registerClass(DayColumnHeaderBackground.self, forDecorationViewOfKind: MS
 <p>Add the following to the bottom of the file:</p>
 <pre><code class="(null)">extension ViewController: MSCollectionViewDelegateCalendarLayout {
 
-<p>func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, dayForSection section: Int) -&gt; NSDate! {
- return self.days[section]
- }</p>
+  func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, dayForSection section: Int) -&gt; NSDate! {
+    return self.days[section]
+  }
 
-<p>func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, startTimeForItemAtIndexPath indexPath: NSIndexPath!) -&gt; NSDate! {
- let session = self.sessions[indexPath.section][indexPath.item]
- return session.start
- }</p>
+  func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, startTimeForItemAtIndexPath indexPath: NSIndexPath!) -&gt; NSDate! {
+    let session = self.sessions[indexPath.section][indexPath.item]
+    return session.start
+  }
 
-<p>func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, endTimeForItemAtIndexPath indexPath: NSIndexPath!) -&gt; NSDate! {
- let session = self.sessions[indexPath.section][indexPath.item]
- return session.end
- }</p>
+  func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, endTimeForItemAtIndexPath indexPath: NSIndexPath!) -&gt; NSDate! {
+    let session = self.sessions[indexPath.section][indexPath.item]
+    return session.end
+  }
 
-<p>func currentTimeComponentsForCollectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!) -&gt; NSDate! {
- return NSDate()
- }</p>
+  func currentTimeComponentsForCollectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!) -&gt; NSDate! {
+    return NSDate()
+  }
+  
 }</code></pre>
 
 <p>This is the recommended way to organise implementing protocols in Swift. Add them as an extension on the class, one for each protocol. Here we give the collection view layout the various things it needs.</p>
@@ -136,25 +139,24 @@ layout.registerClass(DayColumnHeaderBackground.self, forDecorationViewOfKind: MS
 <p>Open <strong>ViewController.swift</strong> and add the following at the top of the file, outside the implementation of the class:</p>
 <pre><code class="(null)">extension SessionCell {
 
-<p>func setupWithSession(session: Session) {
- switch session.track {
- case .Generic:
- self.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
- case .Beginner:
- self.backgroundColor = UIColor(red: 0.8, green: 1.0, blue: 0.8, alpha: 1.0)
- case .Intermediate:
- self.backgroundColor = UIColor(red: 1.0, green: 0.9, blue: 0.8, alpha: 1.0)
- case .Advanced:
- self.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.8, alpha: 1.0)
- }</p>
+  func setupWithSession(session: Session) {
+    switch session.track {
+    case .Generic:
+      self.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
+    case .Beginner:
+      self.backgroundColor = UIColor(red: 0.8, green: 1.0, blue: 0.8, alpha: 1.0)
+    case .Intermediate:
+      self.backgroundColor = UIColor(red: 1.0, green: 0.9, blue: 0.8, alpha: 1.0)
+    case .Advanced:
+      self.backgroundColor = UIColor(red: 1.0, green: 0.8, blue: 0.8, alpha: 1.0)
+    }
 
-<pre><code>self.titleLabel.text = session.title
-self.speakerLabel.text = session.speaker
+    self.titleLabel.text = session.title
+    self.speakerLabel.text = session.speaker
 
-self.setNeedsLayout()
-</code></pre>
+    self.setNeedsLayout()
+  }
 
-<p>}</p>
 }</code></pre>
 
 <p>This is an extension on the <code>SessionCell</code> to enable us to set it up with a given <code>Session</code> instance.</p>
@@ -167,22 +169,22 @@ cell.setupWithSession(session)</code></pre>
 
 <p>Add the following method to the <code>ViewController</code> class:</p>
 <pre><code class="(null)">override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -&gt; UICollectionReusableView {
- switch kind {
- case MSCollectionElementKindDayColumnHeader:
- let dayColumnHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DAY_COLUMN_IDENTIFIER, forIndexPath: indexPath) as DayColumnHeader
- let day = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForDayColumnHeaderAtIndexPath(indexPath)
- dayColumnHeader.titleLabel.text = self.dayColumnDateFormatter.stringFromDate(day)
- dayColumnHeader.setNeedsLayout()
- return dayColumnHeader
- case MSCollectionElementKindTimeRowHeader:
- let timeRowHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: TIME_ROW_IDENTIFIER, forIndexPath: indexPath) as TimeRowHeader
- let time = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForTimeRowHeaderAtIndexPath(indexPath)
- timeRowHeader.titleLabel.text = self.timeRowDateFormatter.stringFromDate(time)
- timeRowHeader.setNeedsLayout()
- return timeRowHeader
- default:
- fatalError(&quot;Unhandled supplementary kind&quot;)
- }
+  switch kind {
+  case MSCollectionElementKindDayColumnHeader:
+    let dayColumnHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DAY_COLUMN_IDENTIFIER, forIndexPath: indexPath) as DayColumnHeader
+    let day = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForDayColumnHeaderAtIndexPath(indexPath)
+    dayColumnHeader.titleLabel.text = self.dayColumnDateFormatter.stringFromDate(day)
+    dayColumnHeader.setNeedsLayout()
+    return dayColumnHeader
+  case MSCollectionElementKindTimeRowHeader:
+    let timeRowHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: TIME_ROW_IDENTIFIER, forIndexPath: indexPath) as TimeRowHeader
+    let time = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForTimeRowHeaderAtIndexPath(indexPath)
+    timeRowHeader.titleLabel.text = self.timeRowDateFormatter.stringFromDate(time)
+    timeRowHeader.setNeedsLayout()
+    return timeRowHeader
+  default:
+    fatalError(&quot;Unhandled supplementary kind&quot;)
+  }
 }</code></pre>
 
 <p>This returns the relevant views for the supplementary items in the collection view.</p>
