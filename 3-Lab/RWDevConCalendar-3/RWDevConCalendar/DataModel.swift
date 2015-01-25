@@ -25,9 +25,9 @@ struct Session {
 }
 
 func createSessionFromJSON(json: JSON) -> Session {
-  let title = json["title"].stringValue ?? ""
-  let speaker = json["speaker"].stringValue ?? ""
-  let description = json["description"].stringValue ?? ""
+  let title = json["title"].stringValue
+  let speaker = json["speaker"].stringValue
+  let description = json["description"].stringValue
   let start = NSDate(timeIntervalSince1970: json["start"].doubleValue)
   let end = NSDate(timeIntervalSince1970: json["end"].doubleValue)
 
