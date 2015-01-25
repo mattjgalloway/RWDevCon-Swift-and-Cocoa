@@ -10,7 +10,7 @@ import UIKit
 
 extension SessionCell {
 
-  func setupWithSession(session: Session) {
+  private func setupWithSession(session: Session) {
     switch session.track {
     case .Generic:
       self.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
