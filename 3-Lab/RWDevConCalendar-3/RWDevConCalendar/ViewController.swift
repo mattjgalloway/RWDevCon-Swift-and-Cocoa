@@ -93,8 +93,8 @@ class ViewController: UICollectionViewController {
 
   private func loadData() {
     let path = NSBundle.mainBundle().pathForResource("sessions", ofType: "json")
-    let url = NSData(contentsOfFile: path!)
-    let json = JSON(data: url!)
+    let jsonData = NSData(contentsOfFile: path!)
+    let json = JSON(data: jsonData!)
 
     var data = [NSDate:[Session]]()
 
