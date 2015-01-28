@@ -10,6 +10,24 @@ First of all you're going to need to change the layout of the storyboard to use 
 
 Then add a view controller called `SpeakersViewController` which is a subclass of `UITableViewController`. In here, load the list of speakers as an array of name & Twitter handle tuples, from the `speakers.json` file. Use the `loadData()` method in `ViewController` as a template if necessary.
 
+**Hint 1:** Here's the code you'll need to use to iterate through the speakers array and pull out speakers as tuples of `String` to `String`:
+
+```
+var speakers = [(String, String)]()
+for (key, value) in json {
+  let speaker = (value["name"].stringValue, value["twitter"].stringValue)
+  speakers.append(speaker)
+}
+```
+
+**Hint 2:** It would be nice to sort the speakers alphabetically. You can use the `sort` method on array to do this. If you're feeling adventurous, try to work out how the syntax can be made as short as this:
+
+```
+speakers.sort {
+  $0.0 < $1.0
+}
+```
+
 You'll need to wire up the table view data source methods to return the correct number of rows and set up the cell appropriately. I suggest using a **Right Detail** type cell, setting the name as the title label's text and the Twitter handle as the detail label's text.
 
 Finally, wire up selection of the table view cell to open a `SLComposeViewController` view controller to compose a new tweet mentioning the speaker that was selected.

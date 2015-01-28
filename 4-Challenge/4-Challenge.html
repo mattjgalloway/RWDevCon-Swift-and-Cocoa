@@ -31,6 +31,18 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 
 <p>Then add a view controller called <code>SpeakersViewController</code> which is a subclass of <code>UITableViewController</code>. In here, load the list of speakers as an array of name &amp; Twitter handle tuples, from the <code>speakers.json</code> file. Use the <code>loadData()</code> method in <code>ViewController</code> as a template if necessary.</p>
 
+<p><strong>Hint 1:</strong> Here&#8217;s the code you&#8217;ll need to use to iterate through the speakers array and pull out speakers as tuples of <code>String</code> to <code>String</code>:</p>
+<pre><code class="(null)">var speakers = [(String, String)]()
+for (key, value) in json {
+  let speaker = (value[&quot;name&quot;].stringValue, value[&quot;twitter&quot;].stringValue)
+  speakers.append(speaker)
+}</code></pre>
+
+<p><strong>Hint 2:</strong> It would be nice to sort the speakers alphabetically. You can use the <code>sort</code> method on array to do this. If you&#8217;re feeling adventurous, try to work out how the syntax can be made as short as this:</p>
+<pre><code class="(null)">speakers.sort {
+  $0.0 &lt; $1.0
+}</code></pre>
+
 <p>You&#8217;ll need to wire up the table view data source methods to return the correct number of rows and set up the cell appropriately. I suggest using a <strong>Right Detail</strong> type cell, setting the name as the title label&#8217;s text and the Twitter handle as the detail label&#8217;s text.</p>
 
 <p>Finally, wire up selection of the table view cell to open a <code>SLComposeViewController</code> view controller to compose a new tweet mentioning the speaker that was selected.</p>
