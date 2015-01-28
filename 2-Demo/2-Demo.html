@@ -50,99 +50,28 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 
 <p>Back to out app, now we can use in Swift, the Objective-C classes which we imported in the bridging header.</p>
 
-<p>Open <strong>ViewController.swift</strong> and enter the following at the end of <code>viewDidLoad()</code>:</p>
-<pre><code class="(null)">let layout = self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout
+<p>Open <strong>ViewController.swift</strong> and find the section of commented lines at the bottom of <code>viewDidLoad()</code>:</p>
+
+<p>Add the following above it:</p>
+<pre><code class="(null)">let layout = MSCollectionViewCalendarLayout()
+self.collectionView?.collectionViewLayout = layout
+layout.delegate = self
 layout.sectionLayoutType = .HorizontalTile
 layout.headerLayoutType = .TimeRowAboveDayColumn
 layout.timeRowHeaderWidth = 46
 layout.sectionWidth = 402</code></pre>
 
-<p>Now you can use the <code>MSCollectionViewCalendarLayout</code> class, which is written in Objective-C, but from Swift!</p>
+<p>You&#8217;re using the <code>MSCollectionViewCalendarLayout</code> class, which is written in Objective-C, but from Swift! We set up various properties of the class and set ourselves as the delegate of it.</p>
 
-<h2 id="parsingthedata">Parsing the data</h2>
+<p>Now uncomment the lines you find just below the lines you added. These register the various classes for decoration and supplementary views in the collection view.</p>
 
-<p>Take a look at <code>ssessions.json</code>. This contains the data for the sessions that we&#8217;ll use to populate the calendar.</p>
-
-<p>Open <strong>ViewController.swift</strong> and find <code>loadData()</code>. Add the following:</p>
-<pre><code class="(null)">let path = NSBundle.mainBundle().pathForResource(&quot;sessions&quot;, ofType: &quot;json&quot;)
-let jsonData = NSData(contentsOfFile: path!)</code></pre>
-
-<p>This obtains the path to the <code>sessions.json</code> file. The return type of <code>pathForResource</code> is <code>NSString?</code> so we need to unwrap it when using it with the <code>NSData</code> initialiser.</p>
-
-<p>Open <strong>sessions.json</strong> and take a look at the structure.</p>
-
-<p>When you parse JSON you as the developer are the only person who knows what the structure of the JSON looks like. This means which keys the objects will have and what the types are.</p>
-
-<p>In Objective-C, parsing JSON was quite simple. You don&#8217;t have to check types because fetching values from arrays and dictionaries gives you <code>id</code> types, which can be cast appropriately. But that was actually quite dangerous. What if the value was considered as a number but actually it was a string? This could mean you end up calling methods on it which are not valid. You would get a runtime crash.</p>
-
-<p>In Swift, the type safety of the compiler makes parsing JSON relatively long-winded. JSON objects are represented as <code>[String:AnyObject]</code> dictionaries. Since accessing dictionaries returns optionals, because the value may not exist for that key, you end up with very nested code, especially if the values you are accessing are a few levels deep in the JSON.</p>
-
-<p>SwiftyJSON is a library which allows you to access JSON much more easily and cleanly in Swift. The heart of the library is a struct called <code>JSON</code>. It parses the structure as you access it, and provides methods to access elements of the JSON.</p>
-
-<p>Every object in the JSON is represented with a value of type <code>JSON</code>. Accessing JSON arrays and JSON objects with SwiftyJSON gives you values of type <code>JSON</code> as well.</p>
-
-<p>When you access values of an object, if you think that a certain value is a string, you can call <code>stringValue</code> on it. This will return a non-optional <code>String</code> object. If the value is not actually a string, then empty string is returned. So it is safe.</p>
-
-<p>Let&#8217;s use that in our code then. Open <strong>ViewController.swift</strong> and add the following underneath the code you just added in <code>viewDidLoad()</code>:</p>
-<pre><code class="(null)">let json = JSON(data: jsonData!)</code></pre>
-
-<p>This parses the sessions JSON data into the SwiftyJSON structure. Now we need to parse it.</p>
-
-<p>Add the following:</p>
-<pre><code class="(null)">var data = [NSDate:[Session]]()</code></pre>
-
-<p>This is going to hold the sessions, keyed by the day they&#8217;re on. So there&#8217;ll be one array for each day of the conference, holding the sessions for that day.</p>
-
-<p>Now add the following:</p>
-<pre><code class="(null)">for (key, value) in json {
-  let session = createSessionFromJSON(value)
-  let day = session.start.beginningOfDay()
-
-  var dayArray = data[day]
-  if dayArray == nil {
-    dayArray = []
-  }
-  dayArray!.append(session)
-  data[day] = dayArray
-}
-
-var days = data.keys.array
-days.sort {
-  lhs, rhs in
-  return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
-}
-
-var sessions = [[Session]]()
-for day in days {
-  sessions.append(data[day]!)
-}
-
-self.days = days
-self.sessions = sessions</code></pre>
-
-<p>This parses all the sessions into the relevant data structures.</p>
-
-<p><strong>Cmd-click</strong> on <code>createSessionFromJSON</code>. This function is where the JSON parsing happens. We use <code>stringValue</code> and <code>doubleValue</code> of SwiftyJSON to access the values. I will leave it as an exercise to write the same code without SwiftyJSON.</p>
+<p>Also, at the bottom of the class, find the commented method called <code>collectionView(viewForSupplementaryElementOfKind:atIndexPath:)</code> and uncomment it. This method returns the supplementary views as requested by the collection view.</p>
 
 <h2 id="buildingthecollectionview">Building the collection view</h2>
 
-<p>Open <strong>ViewController.swift</strong> and add the following to the bottom of <code>viewDidLoad()</code>:</p>
-<pre><code class="(null)">layout.delegate = self
+<p>We&#8217;ve declared ourselves as the delegate of the layout, but haven&#8217;t actually implemented the delegate yet.</p>
 
-self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier: &quot;Cell&quot;)
-self.collectionView?.registerClass(DayColumnHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindDayColumnHeader, withReuseIdentifier: DAY_COLUMN_IDENTIFIER)
-self.collectionView?.registerClass(TimeRowHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindTimeRowHeader, withReuseIdentifier: TIME_ROW_IDENTIFIER)
-
-// These are optional. If you don&apos;t want any of the decoration views, just don&apos;t register a class for them.
-layout.registerClass(CurrentTimeGridline.self, forDecorationViewOfKind: MSCollectionElementKindCurrentTimeHorizontalGridline)
-layout.registerClass(Gridline.self, forDecorationViewOfKind: MSCollectionElementKindHorizontalGridline)
-layout.registerClass(Gridline.self, forDecorationViewOfKind: MSCollectionElementKindVerticalGridline)
-layout.registerClass(TimeRowHeaderBackground.self, forDecorationViewOfKind: MSCollectionElementKindTimeRowHeaderBackground)
-layout.registerClass(DayColumnHeaderBackground.self, forDecorationViewOfKind: MSCollectionElementKindDayColumnHeaderBackground)</code></pre>
-
-<p>This sets up the view controller to be the delegate of the collection view layout and also registers the various collection view cells with the collection view.</p>
-
-<p>Add the following to the bottom of the file:</p>
+<p>Add the following to the bottom of the file, outside the class:</p>
 <pre><code class="(null)">extension ViewController: MSCollectionViewDelegateCalendarLayout {
 
   func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: MSCollectionViewCalendarLayout!, dayForSection section: Int) -&gt; NSDate! {
@@ -173,7 +102,112 @@ layout.registerClass(DayColumnHeaderBackground.self, forDecorationViewOfKind: MS
 
 <h2 id="displayingdata">Displaying data</h2>
 
-<p>Open <strong>ViewController.swift</strong> and add the following at the top of the file, outside the implementation of the class:</p>
+<p>The collection view is ready to go, except for the fact that there is no cell to display the data yet. Now we&#8217;re going to build that class from scratch.</p>
+
+<p>Click <strong>File\New\File…</strong>. Select <strong>iOS\Source\Cocoa Touch Class</strong> and click <strong>Next</strong>. Call the class <strong>SessionCell</strong> and make it a subclass of <strong>UICollectionViewCell</strong>. Make sure the language is set to <strong>Swift</strong>. Click <strong>Next</strong> and save it with the project.</p>
+
+<p>We&#8217;re now going to build this class. It needs to display the session title and the speaker&#8217;s name. To do that, we&#8217;ll use a couple of <code>UILabel</code>s. Add the following properties to the class:</p>
+<pre><code class="(null)">let titleLabel: UILabel
+let speakerLabel: UILabel</code></pre>
+
+<p>Notice that now we&#8217;ve added these properties, the compiler is complaining that there are no initialisers for our class. This is because the properties are declared as non-optionals but we have not specified a value for them. The class needs an initialiser so that the values for the properties can be set, because they must not be nil.</p>
+
+<p>Add the following method:</p>
+<pre><code class="(null)">override init(frame: CGRect) {
+}</code></pre>
+
+<p>This is the designated initialiser for a <code>UIView</code>, and none of <code>SessionCell</code>&#8217;s ancestors declare another designated initialiser, so this is the one we need to override at the very least.</p>
+
+<p>Add the following to the initialiser:</p>
+<pre><code class="(null)">let titleLabel = UILabel(frame: CGRectZero)
+titleLabel.font = UIFont.boldSystemFontOfSize(12)
+titleLabel.numberOfLines = 0
+self.titleLabel = titleLabel</code></pre>
+
+<p>This sets up a <code>UILabel</code>. It looks very similar to how you would have done it in Objective-C. Remember - the core competency of iOS programming really is Cocoa Touch - Swift is just a new syntax!</p>
+
+<p>Next, add the following code:</p>
+<pre><code class="(null)">let speakerLabel = UILabel(frame: CGRectZero)
+speakerLabel.font = UIFont.systemFontOfSize(12)
+speakerLabel.numberOfLines = 0
+self.speakerLabel = speakerLabel</code></pre>
+
+<p>This sets up our second and final label. So we now have both labels set up. You may notice though that we haven&#8217;t called <code>super</code>&#8217;s initialiser yet. In Objective-C we called <code>super</code>&#8217;s initialiser first and then set ourselves up. In Swift, we must set ourselves up and <em>then</em> call <code>super</code>.</p>
+
+<p>Add the following:</p>
+<pre><code class="(null)">super.init(frame: frame)</code></pre>
+
+<p>There, we&#8217;ve now fully initialised the class. It&#8217;s not until we&#8217;ve done this, that we can call anything that is defined in the superclass or any other ancestors. That&#8217;s why we haven&#8217;t added the labels as subviews yet, because the cell itself is not initialised, so the <code>contentView</code> (where we need to add the labels) is not ready yet.</p>
+
+<p>Add the following code:</p>
+<pre><code class="(null)">self.layer.borderColor = UIColor.blackColor().CGColor
+self.layer.borderWidth = 1.0
+
+self.contentView.addSubview(titleLabel)
+self.contentView.addSubview(speakerLabel)</code></pre>
+
+<p>This finalises the initialiser. We give the cell a border, and add the labels to the content view.</p>
+
+<p>Notice there is still an error. It tells us that <code>init(coder:)</code> is a required initialiser. The reason for this is that <code>init(coder:)</code> is another designated initialiser which comes from the <code>NSCoding</code> protocol which all <code>UIView</code>s must adhere to, hence the required. Since we overrode one initialiser, Swift forces us to override all of them. It assumes that if you have extra work to do in one, you must in the other.</p>
+
+<p>Add the following code:</p>
+<pre><code class="(null)">required init(coder aDecoder: NSCoder) {
+  fatalError(&quot;init(coder:) has not been implemented&quot;)
+}</code></pre>
+
+<p>In our case, we&#8217;re going to somewhat ignore <code>NSCoding</code>. We don&#8217;t actually need it in our app, since our cells will be created programatically, so there won&#8217;t be a need to use <code>NSCoding</code>. That&#8217;s for when views are created in Interface Builder. This implementation silences the compiler, because we&#8217;ve overridden the initialiser, but we just crash if this is ever called (which it won&#8217;t).</p>
+
+<p>That&#8217;s the cell initialised. But now we need to add the code which will lay it out. This should be familiar to you. It&#8217;s exactly the same as in Objective-C - just override <code>layoutSubviews</code>.</p>
+
+<p>Add the following method to the class:</p>
+<pre><code class="(null)">override func layoutSubviews() {
+  super.layoutSubviews()
+}</code></pre>
+
+<p>Just like in Objective-C, we need to call <code>super</code> first, so that it gets a chance to layout anything it needs to.</p>
+
+<p>Add the following to the end of the method:</p>
+<pre><code class="(null)">let bounds = self.contentView.bounds
+let padding: CGFloat = 5.0
+let paddedWidth = CGRectGetWidth(bounds) - (2.0 * padding)
+
+let titleLabelSize = self.titleLabel.sizeThatFits(CGSizeMake(paddedWidth, CGFloat.max))</code></pre>
+
+<p>This sets up some constants that we will need during the layout.</p>
+
+<p>Now add the following code:</p>
+<pre><code class="(null)">if self.speakerLabel.text != nil &amp;&amp; countElements(self.speakerLabel.text!) &gt; 0 {
+  self.titleLabel.frame = CGRect(origin: CGPoint(x: padding, y: padding), size: titleLabelSize)
+
+  let speakerLabelSize = self.speakerLabel.sizeThatFits(CGSizeMake(paddedWidth, CGFloat.max))
+  self.speakerLabel.frame = CGRect(origin: CGPoint(x: padding, y: CGRectGetMaxY(bounds) - padding - speakerLabelSize.height), size: speakerLabelSize)
+} else {
+  self.titleLabel.bounds = CGRect(origin: CGPointZero, size: titleLabelSize)
+  self.titleLabel.center = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMidY(bounds))
+}</code></pre>
+
+<p>Here we lay out the cell depending on whether or not the speaker has any text or not. For those that don&#8217;t have a speaker, we centre the text in the cell. These are the generic sessions like registration and the party.</p>
+
+<p>That&#8217;s the cell all done!</p>
+
+<p>Now we need to register the cell class in the collection view. Open <strong>ViewController.swift</strong> and add the following in <code>viewDidLoad()</code>, above the other registering of classes.</p>
+<pre><code class="(null)">self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier: CELL_IDENTIFIER)</code></pre>
+
+<p>That&#8217;s the cell registered, but now we need to set the cells up as we&#8217;re returning them.</p>
+
+<p>Open <strong>ViewController.swift</strong> and find the method called <code>collectionView(cellForItemAtIndexPath:)</code>. Change its contents to the following:</p>
+<pre><code class="(null)">let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as SessionCell
+let session = self.sessions[indexPath.section][indexPath.item]
+cell.setupWithSession(session)
+return cell</code></pre>
+
+<p>We&#8217;ve changed the cast from <code>UICollectionViewCell</code> to <code>SessionCell</code>, since we know that these cells will be <code>SessionCell</code> instances. We then grab the session for the relevant index path and call a method to set up the cell with that session. But we haven&#8217;t yet implemented that setup method. Let&#8217;s do that now.</p>
+
+<p>an often talked about topic in Objective-C was should cells have a dependency on their model. I take the view that they shouldn&#8217;t. Some people would add a category on the cell to set it up with the model object. This worked well, but it still technically leaks a dependency of the cell to the model.</p>
+
+<p>In Swift, we can make use of access modifiers and extensions to achieve the same split but while not leaking the dependency. We can create an extension on the cell, but inside the view controller class, and use a private method in the extension. This method will only be accessible to the view controller. But we&#8217;ve still split concerns into logic sections of code with the extension.</p>
+
+<p>Add the following at the top of the file, outside the implementation of the class:</p>
 <pre><code class="(null)">extension SessionCell {
 
   private func setupWithSession(session: Session) {
@@ -196,35 +230,14 @@ layout.registerClass(DayColumnHeaderBackground.self, forDecorationViewOfKind: MS
 
 }</code></pre>
 
-<p>This is an extension on the <code>SessionCell</code> to enable us to set it up with a given <code>Session</code> instance. This is quite a neat way of using Swift extensions to ensure that the cell class doesn&#8217;t have a dependency on the model. This is a pattern which is quite well talked about in the iOS community. Here we make a dependency on the model for the cell, but only usable within the view controller class. We get to split up the code into logical units, but don&#8217;t end up with the cell having an exposed dependency on the model.</p>
+<h2 id="turningonthedata">Turning on the data</h2>
 
-<p>Find <code>collectionView(cellForItemAtIndexPath:)</code> and add the following in the middle of the existing two lines:</p>
-<pre><code class="(null)">let session = self.sessions[indexPath.section][indexPath.item]
-cell.setupWithSession(session)</code></pre>
+<p>There&#8217;s one last bit of work to do before the view controller will display anything. Currently the data isn&#8217;t being loaded. Open <strong>ViewController.swift</strong> and find <code>viewDidLoad()</code>. Uncomment the line which reads:</p>
+<pre><code class="(null)">self.loadData()</code></pre>
 
-<p>This sets up the cell with the session for the relevant index path.</p>
+<p>This will now pull in the data from the sessions JSON file that I added to the project for you.</p>
 
-<p>Add the following method to the <code>ViewController</code> class:</p>
-<pre><code class="(null)">override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -&gt; UICollectionReusableView {
-  switch kind {
-  case MSCollectionElementKindDayColumnHeader:
-    let dayColumnHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: DAY_COLUMN_IDENTIFIER, forIndexPath: indexPath) as DayColumnHeader
-    let day = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForDayColumnHeaderAtIndexPath(indexPath)
-    dayColumnHeader.titleLabel.text = self.dayColumnDateFormatter.stringFromDate(day)
-    dayColumnHeader.setNeedsLayout()
-    return dayColumnHeader
-  case MSCollectionElementKindTimeRowHeader:
-    let timeRowHeader = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: TIME_ROW_IDENTIFIER, forIndexPath: indexPath) as TimeRowHeader
-    let time = (self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout).dateForTimeRowHeaderAtIndexPath(indexPath)
-    timeRowHeader.titleLabel.text = self.timeRowDateFormatter.stringFromDate(time)
-    timeRowHeader.setNeedsLayout()
-    return timeRowHeader
-  default:
-    fatalError(&quot;Unhandled supplementary kind&quot;)
-  }
-}</code></pre>
-
-<p>This returns the relevant views for the supplementary items in the collection view.</p>
+<p>And that&#8217;s it!</p>
 
 <h2 id="buildrun">Build &amp; Run</h2>
 

@@ -64,14 +64,15 @@ class ViewController: UICollectionViewController {
 
     self.collectionView?.backgroundColor = UIColor(white: 0.922, alpha: 1.0)
 
-    let layout = self.collectionView?.collectionViewLayout as MSCollectionViewCalendarLayout
+    let layout = MSCollectionViewCalendarLayout()
+    self.collectionView?.collectionViewLayout = layout
     layout.delegate = self
     layout.sectionLayoutType = .HorizontalTile
     layout.headerLayoutType = .TimeRowAboveDayColumn
     layout.timeRowHeaderWidth = 46
     layout.sectionWidth = 402
 
-    self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier: "Cell")
+    self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier: CELL_IDENTIFIER)
     self.collectionView?.registerClass(DayColumnHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindDayColumnHeader, withReuseIdentifier: DAY_COLUMN_IDENTIFIER)
     self.collectionView?.registerClass(TimeRowHeader.self, forSupplementaryViewOfKind: MSCollectionElementKindTimeRowHeader, withReuseIdentifier: TIME_ROW_IDENTIFIER)
 
@@ -100,7 +101,7 @@ class ViewController: UICollectionViewController {
 
     for (key, value) in json {
       let session = createSessionFromJSON(value)
-      let day = session.start.beginningOfDay()
+      let day = session.start.rw_beginningOfDay()
 
       var dayArray = data[day]
       if dayArray == nil {

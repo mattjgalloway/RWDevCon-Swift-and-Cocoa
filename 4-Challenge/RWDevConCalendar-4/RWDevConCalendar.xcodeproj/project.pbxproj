@@ -15,6 +15,7 @@
 		1E4003631A2B4B7B00BBFECF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E4003621A2B4B7B00BBFECF /* Images.xcassets */; };
 		1E4003661A2B4B7B00BBFECF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E4003641A2B4B7B00BBFECF /* LaunchScreen.xib */; };
 		1E4003721A2B4B7B00BBFECF /* RWDevConCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4003711A2B4B7B00BBFECF /* RWDevConCalendarTests.swift */; };
+		1E643EA61A78ECFE00FB2356 /* NSDate+RWDevConCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E643EA51A78ECFE00FB2356 /* NSDate+RWDevConCalendar.swift */; };
 		1E878D681A2D162A003031D0 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E878D671A2D162A003031D0 /* DataModel.swift */; };
 		1E878D6A1A2D17CC003031D0 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E878D691A2D17CC003031D0 /* SwiftyJSON.swift */; };
 		1EF44C591A3F68C700F25EC9 /* SpeakersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF44C581A3F68C700F25EC9 /* SpeakersViewController.swift */; };
@@ -47,6 +48,7 @@
 		1E40036B1A2B4B7B00BBFECF /* RWDevConCalendarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RWDevConCalendarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E4003701A2B4B7B00BBFECF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E4003711A2B4B7B00BBFECF /* RWDevConCalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWDevConCalendarTests.swift; sourceTree = "<group>"; };
+		1E643EA51A78ECFE00FB2356 /* NSDate+RWDevConCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+RWDevConCalendar.swift"; sourceTree = "<group>"; };
 		1E878D671A2D162A003031D0 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		1E878D691A2D17CC003031D0 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		1E9497701A2BACFE008F24B0 /* RWDevConCalendar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RWDevConCalendar-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				1E3A436E1A2D117D00F8D059 /* SessionCell.swift */,
 				1E878D671A2D162A003031D0 /* DataModel.swift */,
 				1E878D691A2D17CC003031D0 /* SwiftyJSON.swift */,
+				1E643EA51A78ECFE00FB2356 /* NSDate+RWDevConCalendar.swift */,
 				1E40035F1A2B4B7B00BBFECF /* Main.storyboard */,
 				1E4003621A2B4B7B00BBFECF /* Images.xcassets */,
 				1E4003641A2B4B7B00BBFECF /* LaunchScreen.xib */,
@@ -295,6 +298,7 @@
 				1E878D6A1A2D17CC003031D0 /* SwiftyJSON.swift in Sources */,
 				1EF44C591A3F68C700F25EC9 /* SpeakersViewController.swift in Sources */,
 				1E3A436D1A2D117000F8D059 /* CalendarViews.swift in Sources */,
+				1E643EA61A78ECFE00FB2356 /* NSDate+RWDevConCalendar.swift in Sources */,
 				1EFA5C821A2E5DF6004E78C0 /* SessionViewController.swift in Sources */,
 				1E40035C1A2B4B7B00BBFECF /* AppDelegate.swift in Sources */,
 			);

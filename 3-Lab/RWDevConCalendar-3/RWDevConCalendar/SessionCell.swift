@@ -29,8 +29,8 @@ class SessionCell: UICollectionViewCell {
     self.layer.borderColor = UIColor.blackColor().CGColor
     self.layer.borderWidth = 1.0
 
-    self.addSubview(titleLabel)
-    self.addSubview(speakerLabel)
+    self.contentView.addSubview(titleLabel)
+    self.contentView.addSubview(speakerLabel)
   }
 
   required init(coder aDecoder: NSCoder) {
@@ -40,7 +40,7 @@ class SessionCell: UICollectionViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    let bounds = self.bounds
+    let bounds = self.contentView.bounds
     let padding: CGFloat = 5.0
     let paddedWidth = CGRectGetWidth(bounds) - (2.0 * padding)
 
