@@ -154,6 +154,13 @@ class ViewController: UICollectionViewController {
     }
   }
 
+  override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    let session = self.sessions[indexPath.section][indexPath.item]
+    let alert = UIAlertController(title: "Session tapped", message: "You tapped session:\n\(session.title)", preferredStyle: .Alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+
 }
 
 extension ViewController: MSCollectionViewDelegateCalendarLayout {

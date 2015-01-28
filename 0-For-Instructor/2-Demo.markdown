@@ -221,16 +221,26 @@ self.collectionView?.registerClass(SessionCell.self, forCellWithReuseIdentifier:
 
 That's the cell registered, but now we need to set the cells up as we're returning them.
 
-Open **ViewController.swift** and find the method called `collectionView(cellForItemAtIndexPath:)`. Change its contents to the following:
+Open **ViewController.swift** and add the following methods after `loadData()`:
 
 ```
-let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as SessionCell
-let session = self.sessions[indexPath.section][indexPath.item]
-cell.setupWithSession(session)
-return cell
+override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+  return self.days.count;
+}
+
+override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  return self.sessions[section].count
+}
+
+override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+  let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as SessionCell
+  let session = self.sessions[indexPath.section][indexPath.item]
+  cell.setupWithSession(session)
+  return cell
+}
 ```
 
-We've changed the cast from `UICollectionViewCell` to `SessionCell`, since we know that these cells will be `SessionCell` instances. We then grab the session for the relevant index path and call a method to set up the cell with that session. But we haven't yet implemented that setup method. Let's do that now.
+Here we return the number of sections and items in the collection view. In the cell method, we then grab the session for the relevant index path and call a method to set up the cell with that session. But we haven't yet implemented that setup method. Let's do that now.
 
 an often talked about topic in Objective-C was should cells have a dependency on their model. I take the view that they shouldn't. Some people would add a category on the cell to set it up with the model object. This worked well, but it still technically leaks a dependency of the cell to the model.
 
@@ -261,6 +271,19 @@ extension SessionCell {
 
 }
 ```
+
+Finally, lets make something happen when you tap on the cells. Add the following method at the end of the class:
+
+```
+override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+  let session = self.sessions[indexPath.section][indexPath.item]
+  let alert = UIAlertController(title: "Session tapped", message: "You tapped session:\n\(session.title)", preferredStyle: .Alert)
+  alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+  self.presentViewController(alert, animated: true, completion: nil)
+}
+```
+
+This creates an alert controller and presents it. Notice how creating an alert is very similar to what you're used to from Objective-C. It looks almost the same - because it is!
 
 ## Turning on the data
 

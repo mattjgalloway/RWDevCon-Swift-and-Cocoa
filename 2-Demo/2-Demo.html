@@ -15,7 +15,7 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 </style>
 
 </head>
-<body class="normal">
+<body class="normal firstload">
   <div id="wrapper">
       <h1 id="203:swiftcocoapart2:demoinstructions">203: Swift &amp; Cocoa, Part 2: Demo Instructions</h1>
 
@@ -195,13 +195,23 @@ let titleLabelSize = self.titleLabel.sizeThatFits(CGSizeMake(paddedWidth, CGFloa
 
 <p>That&#8217;s the cell registered, but now we need to set the cells up as we&#8217;re returning them.</p>
 
-<p>Open <strong>ViewController.swift</strong> and find the method called <code>collectionView(cellForItemAtIndexPath:)</code>. Change its contents to the following:</p>
-<pre><code class="(null)">let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as SessionCell
-let session = self.sessions[indexPath.section][indexPath.item]
-cell.setupWithSession(session)
-return cell</code></pre>
+<p>Open <strong>ViewController.swift</strong> and add the following methods after <code>loadData()</code>:</p>
+<pre><code class="(null)">override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -&gt; Int {
+  return self.days.count;
+}
 
-<p>We&#8217;ve changed the cast from <code>UICollectionViewCell</code> to <code>SessionCell</code>, since we know that these cells will be <code>SessionCell</code> instances. We then grab the session for the relevant index path and call a method to set up the cell with that session. But we haven&#8217;t yet implemented that setup method. Let&#8217;s do that now.</p>
+override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int {
+  return self.sessions[section].count
+}
+
+override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -&gt; UICollectionViewCell {
+  let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as SessionCell
+  let session = self.sessions[indexPath.section][indexPath.item]
+  cell.setupWithSession(session)
+  return cell
+}</code></pre>
+
+<p>Here we return the number of sections and items in the collection view. In the cell method, we then grab the session for the relevant index path and call a method to set up the cell with that session. But we haven&#8217;t yet implemented that setup method. Let&#8217;s do that now.</p>
 
 <p>an often talked about topic in Objective-C was should cells have a dependency on their model. I take the view that they shouldn&#8217;t. Some people would add a category on the cell to set it up with the model object. This worked well, but it still technically leaks a dependency of the cell to the model.</p>
 
@@ -229,6 +239,16 @@ return cell</code></pre>
   }
 
 }</code></pre>
+
+<p>Finally, lets make something happen when you tap on the cells. Add the following method at the end of the class:</p>
+<pre><code class="(null)">override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+  let session = self.sessions[indexPath.section][indexPath.item]
+  let alert = UIAlertController(title: &quot;Session tapped&quot;, message: &quot;You tapped session:\n\(session.title)&quot;, preferredStyle: .Alert)
+  alert.addAction(UIAlertAction(title: &quot;OK&quot;, style: .Default, handler: nil))
+  self.presentViewController(alert, animated: true, completion: nil)
+}</code></pre>
+
+<p>This creates an alert controller and presents it. Notice how creating an alert is very similar to what you&#8217;re used to from Objective-C. It looks almost the same - because it is!</p>
 
 <h2 id="turningonthedata">Turning on the data</h2>
 

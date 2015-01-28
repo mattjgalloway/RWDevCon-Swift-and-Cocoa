@@ -87,19 +87,6 @@ class ViewController: UICollectionViewController {
     self.sessions = sessions
   }
 
-  override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return self.days.count;
-  }
-
-  override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return self.sessions[section].count
-  }
-
-  override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CELL_IDENTIFIER, forIndexPath: indexPath) as UICollectionViewCell
-    return cell
-  }
-
 //  override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
 //    switch kind {
 //    case MSCollectionElementKindDayColumnHeader:

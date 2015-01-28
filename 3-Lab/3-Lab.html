@@ -15,7 +15,7 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 </style>
 
 </head>
-<body class="normal firstload">
+<body class="normal">
   <div id="wrapper">
       <h1 id="203:swiftcocoapart3:labinstructions">203: Swift &amp; Cocoa, Part 3: Lab Instructions</h1>
 
@@ -56,21 +56,22 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 
 <p>Next, add the following method to the class:</p>
 <pre><code class="(null)">private func updateWithCurrentSession() {
-  if !self.isViewLoaded() {
-    return
-  }
+ if !self.isViewLoaded() {
+ return
+ }
 
-  if let session = self.session {
-    self.titleLabel.text = session.title
-    self.speakerLabel.text = session.speaker
-    self.descriptionLabel.text = session.description
+<p>if let session = self.session {
+ self.titleLabel.text = session.title
+ self.speakerLabel.text = session.speaker
+ self.descriptionLabel.text = session.description</p>
 
-    let startDateFormatter = NSDateFormatter()
-    startDateFormatter.dateFormat = &quot;EEEE HH:mm&quot;
-    let endDateFormatter = NSDateFormatter()
-    endDateFormatter.dateFormat = &quot;HH:mm&quot;
-    self.timeLabel.text = &quot;\(startDateFormatter.stringFromDate(session.start)) - \(endDateFormatter.stringFromDate(session.end))&quot;
-  }
+<pre><code>let startDateFormatter = NSDateFormatter()
+startDateFormatter.dateFormat = &amp;quot;EEEE HH:mm&amp;quot;
+let endDateFormatter = NSDateFormatter()
+endDateFormatter.dateFormat = &amp;quot;HH:mm&amp;quot;
+self.timeLabel.text = &amp;quot;\(startDateFormatter.stringFromDate(session.start)) - \(endDateFormatter.stringFromDate(session.end))&amp;quot;
+</code></pre>
+ }
 }</code></pre>
 
 <p>This will update the view with the relevant information for the current session. It first checks to see if the view is loaded because if not then the <code>titleLabel</code>, <code>descriptionLabel</code>, <code>speakerLabel</code> and <code>timeLabel</code> outlets will not be populated yet. It also uses optional binding to gain access to the <code>session</code> property optional.</p>
@@ -79,9 +80,9 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 
 <p>To achieve the latter we can hook into the <code>session</code> property. Change its definition to the following:</p>
 <pre><code class="(null)">var session: Session? = nil {
-  didSet {
-    self.updateWithCurrentSession()
-  }
+ didSet {
+ self.updateWithCurrentSession()
+ }
 }</code></pre>
 
 <p>This adds code that runs after the property is set. We simply call the <code>updateWithCurrentSession</code> method to update the view as necessary.</p>
@@ -89,8 +90,7 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 <p>Now find <code>viewDidLoad()</code> and make it look like this:</p>
 <pre><code class="(null)">super.viewDidLoad()
 
-self.title = &quot;Session&quot;
-
+<p>self.title = &quot;Session&quot;</p>
 self.updateWithCurrentSession()</code></pre>
 
 <p>This sets the title before calling the <code>updateWithCurrentSession</code> method to populate the labels as necessary.</p>
@@ -99,20 +99,20 @@ self.updateWithCurrentSession()</code></pre>
 
 <p>The view controller is almost finished, but first you need to wire it up to the main view controller.</p>
 
-<p>Open <strong>ViewController.swift</strong> and add the following method to the class:</p>
+<p>Open <strong>ViewController.swift</strong> and find <code>collectionView(didSelectItemAtIndexPath:)</code>. Change it to look like this:</p>
 <pre><code class="(null)">override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-  self.performSegueWithIdentifier(PRESENT_SESSION_SEGUE_IDENTIFIER, sender: indexPath)
+ self.performSegueWithIdentifier(PRESENT_SESSION_SEGUE_IDENTIFIER, sender: indexPath)
 }</code></pre>
 
 <p>This will cause the <code>PresentSession</code> segue to happen when a cell in the collection view is selected. The sender is the index path that was selected. The reason for this choice will become clear shortly.</p>
 
 <p>Add the following method to the class:</p>
 <pre><code class="(null)">override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  if segue.identifier == PRESENT_SESSION_SEGUE_IDENTIFIER {
-    let indexPath = sender as NSIndexPath
-    let viewController = segue.destinationViewController as SessionViewController
-    viewController.session = self.sessions[indexPath.section][indexPath.item]
-  }
+ if segue.identifier == PRESENT_SESSION_SEGUE_IDENTIFIER {
+ let indexPath = sender as NSIndexPath
+ let viewController = segue.destinationViewController as SessionViewController
+ viewController.session = self.sessions[indexPath.section][indexPath.item]
+ }
 }</code></pre>
 
 <p>This handles preparation of the view controller when the segue happens. Here the sender of the segue is retrieved, which in this case is the index path of the selected collection view item.</p>
@@ -131,13 +131,13 @@ self.updateWithCurrentSession()</code></pre>
 
 <p>Open <strong>SessionViewController.swift</strong> and add the following method to the class:</p>
 <pre><code class="(null)">private func shareTapped(sender: AnyObject) {
-  if let session = self.session {
-    let activityViewController = UIActivityViewController(activityItems: [&quot;I&apos;m attending \(session.title) at RWDevCon!&quot;], applicationActivities: nil)
-    activityViewController.completionHandler = { (activityType: String!, completed: Bool) in
-      self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    self.presentViewController(activityViewController, animated: true, completion: nil)
-  }
+ if let session = self.session {
+ let activityViewController = UIActivityViewController(activityItems: [&quot;I&apos;m attending (session.title) at RWDevCon!&quot;], applicationActivities: nil)
+ activityViewController.completionHandler = { (activityType: String!, completed: Bool) in
+ self.dismissViewControllerAnimated(true, completion: nil)
+ }
+ self.presentViewController(activityViewController, animated: true, completion: nil)
+ }
 }</code></pre>
 
 <p>This adds a method which will display a <code>UIActivityViewController</code> to allow native sharing of the fact that you&#8217;re attending a certain session. That part is fairly simple and self explanatory.</p>

@@ -93,7 +93,7 @@ This sets the title before calling the `updateWithCurrentSession` method to popu
 
 The view controller is almost finished, but first you need to wire it up to the main view controller.
 
-Open **ViewController.swift** and add the following method to the class:
+Open **ViewController.swift** and find `collectionView(didSelectItemAtIndexPath:)`. Change it to look like this:
 
 ```
 override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
