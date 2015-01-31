@@ -1,34 +1,26 @@
 [
   {
-    "title":"Breakfast, Registration",
+    "title":"Registration",
     "speaker":"",
     "description":"",
     "start": 1423227600,
-    "end": 1423230300,
-    "track": "Generic"
-  },
-  {
-    "title":"Opening Remarks",
-    "speaker":"",
-    "description":"",
-    "start": 1423230300,
     "end": 1423231200,
     "track": "Generic"
   },
   {
-    "title":"Keynote",
+    "title":"Opening Remarks & Keynote",
     "speaker":"",
     "description":"",
     "start": 1423231200,
-    "end": 1423233000,
+    "end": 1423233900,
     "track": "Generic"
   },
   {
     "title":"Lunch",
     "speaker":"",
     "description":"",
-    "start": 1423243800,
-    "end": 1423247400,
+    "start": 1423244700,
+    "end": 1423248300,
     "track": "Generic"
   },
   {
@@ -36,23 +28,7 @@
     "speaker":"",
     "description":"",
     "start": 1423265400,
-    "end": 1423285200,
-    "track": "Generic"
-  },
-  {
-    "title":"Breakfast",
-    "speaker":"",
-    "description":"",
-    "start": 1423314000,
-    "end": 1423315800,
-    "track": "Generic"
-  },
-  {
-    "title":"Opening Remarks",
-    "speaker":"",
-    "description":"",
-    "start": 1423315800,
-    "end": 1423316700,
+    "end": 1423276200,
     "track": "Generic"
   },
   {
@@ -78,32 +54,32 @@
     "title":"101: iOS Apprentice Review 1",
     "speaker":"Tammy Coron",
     "description":"You read the book. Now it’s time to put your knowledge to the test. Wait, you did read the book, right? :] In this session, you’ll review the basic concepts of the programming language Swift. You’ll learn about objects, protocols, methods, and more. You’ll have an opportunity to work with UIKit, Auto Layout, and Size Classes as you build a super secret wicked cool app.",
-    "start": 1423233900,
-    "end": 1423238400,
+    "start": 1423234800,
+    "end": 1423239300,
     "track": "Beginner"
   },
   {
     "title":"102: iOS Apprentice Review 2",
     "speaker":"Brian Moakley",
     "description":"Prerequisite: 101: iOS Apprentice Review 1\n\nThis exciting sequel to the first tutorial features the adventures of an iOS Apprentice who attempts to navigate the dark corridors of Xcode in a quest to make the app of dreams. Thrill as Swift harnesses the power of view controllers, segues, and storyboards that ultimately turns this iOS Apprentice into a full born wizard.",
-    "start": 1423239300,
-    "end": 1423243800,
+    "start": 1423240200,
+    "end": 1423244700,
     "track": "Beginner"
   },
   {
     "title":"103: Auto Layout",
     "speaker":"Greg Heo",
     "description":"If you’re tired of manually resizing labels to fit the strings your German translator provided, this session is for you! We’ll look at building interfaces with Auto Layout in interface builder, layout margins, and how to work with auto layout constraints in code. These tools will help you design apps to work across different screen sizes, and get you ready for our following talks on Adaptive Layout and Animating Auto Layout Constraints.",
-    "start": 1423247400,
-    "end": 1423251900,
+    "start": 1423248300,
+    "end": 1423252800,
     "track": "Beginner"
   },
   {
     "title":"104: Adaptive Layout",
     "speaker":"Sam Davies",
     "description":"iOS 8 supports five different screen sizes, and as a developer you should support all of these. You have a choice: either create five distinct layouts, or get with the cool kids and learn to love Auto Layout and Adaptive Layout. This tutorial will get you up to speed to Adaptive Layout in IB, and cover some of the underlying concepts including size classes and trait collections.",
-    "start": 1423252800,
-    "end": 1423257300,
+    "start": 1423253700,
+    "end": 1423258200,
     "track": "Beginner"
   },
   {
@@ -145,32 +121,32 @@
     "title":"201: Swift for Objective-C Devs: Language Basics",
     "speaker":"Matt Galloway",
     "description":"Swift is the new shiny from Apple. It’s the future of iOS programming for sure. You’ve probably heard about it, maybe even dabbled in it. This tutorial is your opportunity to dive right in and learn about the basics Swift. After this you’ll be ready and fired up for the following tutorials which take you further.",
-    "start": 1423233900,
-    "end": 1423238400,
+    "start": 1423234800,
+    "end": 1423239300,
     "track": "Intermediate"
   },
   {
     "title":"202: Swift for Objective-C Devs: Generics, Closures, Enums and Switch Statements",
     "speaker":"Matthijs Hollemans",
     "description":"Prerequisite: 201: Swift for Obj-C Devs: Language Basics\n\nHave you mastered the basics of Swift, but still a little unclear about the more advanced features? Learn to unlock the full expressiveness of Swift with generics, closures, and enums. Generics allow you avoid duplicated code, closures allow a functional programming style, and enums are often a better solution than classes or structs.",
-    "start": 1423239300,
-    "end": 1423243800,
+    "start": 1423240200,
+    "end": 1423244700,
     "track": "Intermediate"
   },
   {
     "title":"203: Swift for Objective-C Devs: Swift & Cocoa",
     "speaker":"Matt Galloway",
     "description":"Prerequisite: 202: Swift for Objective-C Devs: Generics, Closures, Enums and Switch Statements.\n\nDeveloping iOS apps is about much more than the language. Whether you’re writing in Swift or Objective-C, you need to know how the system frameworks, Cocoa, are interfaced with. In this tutorial you’ll learn how interfacing with Cocoa works in Swift: from the design patterns, to bridging between Swift and Objective-C, and more!",
-    "start": 1423247400,
-    "end": 1423251900,
+    "start": 1423248300,
+    "end": 1423252800,
     "track": "Intermediate"
   },
   {
     "title":"204: Swift for Objective-C Devs: Functional Programming",
     "speaker":"Alexis Gallagher",
     "description":"Prerequisite: 203: Swift for Obj-C Devs: Swift and Cocoa\n\nSwift introduces a load of new language features, but what’s the best way to make the most of them? This tutorial provides a pragmatic introduction to functional programming in Swift, comparing an object-oriented approach to a more functional approach. No prior experience required.",
-    "start": 1423252800,
-    "end": 1423257300,
+    "start": 1423253700,
+    "end": 1423258200,
     "track": "Intermediate"
   },
   {
@@ -212,32 +188,32 @@
     "title":"301: App Architecture",
     "speaker":"Matthijs Hollemans",
     "description":"Say no to spaghetti code! Learn how to decide which objects your app needs, how those objects should talk to each other, and how to keep your code from becoming a mess. Clean architecture makes your apps easier to write, understand, and maintain. This talk is for anyone who suspects their code could be better but doesn’t know where to start. After this talk, you’ll never look at your code the same way again.",
-    "start": 1423233900,
-    "end": 1423238400,
+    "start": 1423234800,
+    "end": 1423239300,
     "track": "Advanced"
   },
   {
     "title":"302: Advanced Debugging",
     "speaker":"Richard Turton",
     "description":"Nobody’s perfect. Everybody’s apps crash, or do strange and inexplicable things sometimes. In this talk you’ll learn how to track down those hard-to-find problems in your code, making clever use of breakpoints and the debugger. Learn battle-tested techniques from a developer who’s written hundreds of bugs over the years ;]",
-    "start": 1423239300,
-    "end": 1423243800,
+    "start": 1423240200,
+    "end": 1423244700,
     "track": "Advanced"
   },
   {
-    "title":"303: AsyncDisplayKit",
-    "speaker":"Scott Goodson",
+    "title":"303: Effortless Responsiveness with AsyncDisplayKit",
+    "speaker":"Scott Goodson & René Cacheaux",
     "description":"AsyncDisplayKit is an iOS framework that helps make even the most complex user interfaces smooth and responsive. It was originally built for Facebook’s Paper, and goes hand in hand with Pop’s physics-based animations - but it’s just as powerful with conventional app designs. Learn how to use AsyncDisplayKit to make silky-smooth UIs - by one of the authors of the framework!",
-    "start": 1423247400,
-    "end": 1423251900,
+    "start": 1423248300,
+    "end": 1423252800,
     "track": "Advanced"
   },
   {
     "title":"304: Unit Testing in Practice",
     "speaker":"Ellen Shapiro",
     "description":"You’ve written a unit test or two, but are you ready to take your testing to the next level? In this session, you’ll learn advanced and practical techniques like testing in-memory stores for Core Data, async testing with XCTestExpectation, using the power of Swift for dead-easy mocking, feeding your networking stack from local files using NSURLProtocol, and more!",
-    "start": 1423252800,
-    "end": 1423257300,
+    "start": 1423253700,
+    "end": 1423258200,
     "track": "Advanced"
   },
   {
