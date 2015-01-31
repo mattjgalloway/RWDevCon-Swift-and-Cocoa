@@ -20,7 +20,6 @@ Open **RWDevConCalendar-Bridging-Header.h** and make it look like this:
 
 ```
 #import "MSCollectionViewCalendarLayout.h"
-#import "NSDate+CupertinoYankee.h"
 ```
 
 Select the project in the project navigator, then select **Build Settings**. Search for **Bridg** and select **Objective-C Bridging Header**. Double click on the setting under the column **RWDevConCalendar** and enter:

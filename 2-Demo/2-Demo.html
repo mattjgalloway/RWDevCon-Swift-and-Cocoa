@@ -36,8 +36,7 @@ body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,A
 <p>This file is where we pull in Objective-C classes that we want to expose in Swift. Anything we import in this header, will be accessible from Swift. This is the Objective-C to Swift bridging header.</p>
 
 <p>Open <strong>RWDevConCalendar-Bridging-Header.h</strong> and make it look like this:</p>
-<pre><code class="(null)">#import &quot;MSCollectionViewCalendarLayout.h&quot;
-#import &quot;NSDate+CupertinoYankee.h&quot;</code></pre>
+<pre><code class="(null)">#import &quot;MSCollectionViewCalendarLayout.h&quot;</code></pre>
 
 <p>Select the project in the project navigator, then select <strong>Build Settings</strong>. Search for <strong>Bridg</strong> and select <strong>Objective-C Bridging Header</strong>. Double click on the setting under the column <strong>RWDevConCalendar</strong> and enter:</p>
 <pre><code class="(null)">${PRODUCT_NAME}/${PRODUCT_NAME}-Bridging-Header.h</code></pre>

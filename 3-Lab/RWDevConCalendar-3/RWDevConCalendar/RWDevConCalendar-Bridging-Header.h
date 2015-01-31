@@ -7,4 +7,3 @@
 //
 
 #import "MSCollectionViewCalendarLayout.h"
-#import "NSDate+CupertinoYankee.h"
